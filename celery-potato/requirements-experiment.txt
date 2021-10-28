@@ -1,0 +1,5 @@
+celery==5.1.2
+opentelemetry-instrumentation==0.25b2
+opentelemetry-instrumentation-celery==0.25b2
+opentelemetry-semantic-conventions==0.25b2
+git+https://github.com/lonewolf3739/opentelemetry-python.git@delay-start#egg=opentelemetry-sdk&subdirectory=opentelemetry-sdk

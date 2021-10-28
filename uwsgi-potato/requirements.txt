@@ -1,0 +1,8 @@
+Flask==2.0.2
+uWSGI==2.0.20
+opentelemetry-instrumentation==0.25b2
+opentelemetry-instrumentation-flask==0.25b2
+opentelemetry-instrumentation-wsgi==0.25b2
+opentelemetry-semantic-conventions==0.25b2
+opentelemetry-util-http==0.25b2
+opentelemetry-sdk==1.6.2
