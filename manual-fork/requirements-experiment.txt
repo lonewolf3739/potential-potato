@@ -1,1 +1,1 @@
-git+https://github.com/lonewolf3739/opentelemetry-python.git@delay-start#egg=opentelemetry-sdk&subdirectory=opentelemetry-sdk
+git+https://github.com/lonewolf3739/opentelemetry-python.git@bugfix-issue-2266#egg=opentelemetry-sdk&subdirectory=opentelemetry-sdk

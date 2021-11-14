@@ -9,7 +9,9 @@ from opentelemetry.trace import get_tracer, get_tracer_provider, set_tracer_prov
 
 set_tracer_provider(TracerProvider(resource=Resource.create({"service.name": "app"})))
 exporter = InMemorySpanExporter()
-get_tracer_provider().add_span_processor(BatchSpanProcessor(exporter, schedule_delay_millis=50))
+get_tracer_provider().add_span_processor(
+    BatchSpanProcessor(exporter, schedule_delay_millis=50)
+)
 
 tracer = get_tracer(__name__, "0.1")
 
@@ -18,17 +20,21 @@ def func():
     print("pid: ", os.getpid())
     exporter.clear()
 
-    with tracer.start_as_current_span("proc"):
-        with tracer.start_as_current_span("inner_span"):
-            pass
+    for _ in range(6):
+        with tracer.start_as_current_span("proc"):
+            with tracer.start_as_current_span("inner_span"):
+                pass
     time.sleep(0.5)
     spans = exporter.get_finished_spans()
-    assert len(spans) == 2
+    assert len(spans) > 0
     for span in spans:
         assert span.name in ["proc", "inner_span"]
 
+
 if __name__ == "__main__":
     print("pid: ", os.getpid())
+    with tracer.start_as_current_span("before"):
+        pass
     pid = os.fork()
     if not pid:
         func()

@@ -1,8 +1,8 @@
 Flask==2.0.2
 uWSGI==2.0.20
-opentelemetry-instrumentation==0.25b2
-opentelemetry-instrumentation-flask==0.25b2
-opentelemetry-instrumentation-wsgi==0.25b2
-opentelemetry-semantic-conventions==0.25b2
-opentelemetry-util-http==0.25b2
-git+https://github.com/lonewolf3739/opentelemetry-python.git@delay-start#egg=opentelemetry-sdk&subdirectory=opentelemetry-sdk
+opentelemetry-instrumentation==0.26b1
+opentelemetry-instrumentation-flask==0.26b1
+opentelemetry-instrumentation-wsgi==0.26b1
+opentelemetry-semantic-conventions==0.26b1
+opentelemetry-util-http==0.26b1
+git+https://github.com/lonewolf3739/opentelemetry-python.git@bugfix-issue-2266#egg=opentelemetry-sdk&subdirectory=opentelemetry-sdk

@@ -34,3 +34,6 @@ def really_add(x, y):
 def add(x, y):
     print("nah!")
     really_add.delay(x, y)
+
+
+add.delay(1, 2)

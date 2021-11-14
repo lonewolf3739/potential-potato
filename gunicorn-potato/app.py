@@ -1,11 +1,35 @@
 import flask
 from flask import request
+import logging
 
 from opentelemetry import trace
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
+from opentelemetry.sdk._logs.export import BatchLogProcessor, ConsoleExporter
+from opentelemetry.sdk._logs import (
+    LogEmitterProvider,
+    OTLPHandler,
+    set_log_emitter_provider,
+)
+
+log_emitter_provider = LogEmitterProvider(
+    resource=Resource.create(
+        {
+            "service.name": "shoppingcart",
+            "service.instance.id": "instance-12",
+        }
+    ),
+)
+set_log_emitter_provider(log_emitter_provider)
+log_emitter_provider.add_log_processor(BatchLogProcessor(ConsoleExporter()))
+log_emitter = log_emitter_provider.get_log_emitter(__name__, "0.1")
+handler = OTLPHandler(level=logging.NOTSET, log_emitter=log_emitter)
+
+# Attach OTLP handler to root logger
+logging.getLogger("root").addHandler(handler)
+
 
 application = flask.Flask(__name__)
 
@@ -37,6 +61,7 @@ def fib_fast(n):
 
 @application.route("/fibonacci")
 def fibonacci():
+    logging.error("yolo")
     n = int(request.args.get("n", 1))
     with tracer.start_as_current_span("root"):
         with tracer.start_as_current_span("fib_slow") as slow_span:
